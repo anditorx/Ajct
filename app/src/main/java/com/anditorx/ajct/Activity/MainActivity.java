@@ -45,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
         rvDataLaundry = findViewById(R.id.rv_data);
         lmDataLaundry = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         rvDataLaundry.setLayoutManager(lmDataLaundry);
-        retrieveDataLaundry();
+        // retrieveDataLaundry();
 
         // swipe refresh
         swipeRefreshLaundry.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -56,6 +56,12 @@ public class MainActivity extends AppCompatActivity {
                 swipeRefreshLaundry.setRefreshing(false);
             }
         });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        retrieveDataLaundry();
     }
 
     public void retrieveDataLaundry(){
