@@ -20,5 +20,12 @@ public interface APIRequestDataLaundry {
             @Field("phone") String phone
     );
 
+    @FormUrlEncoded
+    @POST("delete.php")
+    Call<ResponseLaundryModel> ardDeleteDataLaundry(
+            @Field("id") int id
+
+    );
+
 
 }
