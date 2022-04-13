@@ -7,9 +7,11 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.Toast;
 
@@ -19,6 +21,7 @@ import com.anditorx.ajct.Adapter.AdapterDataLaundry;
 import com.anditorx.ajct.Model.DataLaundryModel;
 import com.anditorx.ajct.Model.ResponseLaundryModel;
 import com.anditorx.ajct.R;
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -29,6 +32,7 @@ import retrofit2.Response;
 
 public class MainActivity extends AppCompatActivity {
     private RecyclerView rvDataLaundry;
+    private FloatingActionButton fabAdd;
     private RecyclerView.Adapter adDataLaundry;
     private RecyclerView.LayoutManager lmDataLaundry;
     private List<DataLaundryModel> listDataLaundry = new ArrayList<>();
@@ -43,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
         swipeRefreshLaundry = findViewById(R.id.srl_dataLaundry);
         pbDataLaundry = findViewById(R.id.pb_dataLaundry);
         rvDataLaundry = findViewById(R.id.rv_data);
+        fabAdd = findViewById(R.id.fab_add);
         lmDataLaundry = new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false);
         rvDataLaundry.setLayoutManager(lmDataLaundry);
         // retrieveDataLaundry();
@@ -54,6 +59,13 @@ public class MainActivity extends AppCompatActivity {
                 swipeRefreshLaundry.setRefreshing(true);
                 retrieveDataLaundry();
                 swipeRefreshLaundry.setRefreshing(false);
+            }
+        });
+
+        fabAdd.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, AddLaundryActivity.class));
             }
         });
     }
@@ -76,9 +88,6 @@ public class MainActivity extends AppCompatActivity {
                 int code = response.body().getCode();
                 String message = response.body().getMessage();
 
-
-                Toast.makeText(MainActivity.this, "Successfully get data laundry", Toast.LENGTH_SHORT).show();
-
                 listDataLaundry = response.body().getData();
 
                 adDataLaundry = new AdapterDataLaundry(MainActivity.this, listDataLaundry);
@@ -95,4 +104,7 @@ public class MainActivity extends AppCompatActivity {
             }
         });
     }
+
+
+
 }
