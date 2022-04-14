@@ -24,7 +24,21 @@ public interface APIRequestDataLaundry {
     @POST("delete.php")
     Call<ResponseLaundryModel> ardDeleteDataLaundry(
             @Field("id") int id
+    );
 
+    @FormUrlEncoded
+    @POST("detail.php")
+    Call<ResponseLaundryModel> ardDetailDataLaundry(
+            @Field("id") int id
+    );
+
+    @FormUrlEncoded
+    @POST("update.php")
+    Call<ResponseLaundryModel> ardUpdateDataLaundry(
+            @Field("id") int id,
+            @Field("name") String name,
+            @Field("address") String address,
+            @Field("phone") String phone
     );
 
 
